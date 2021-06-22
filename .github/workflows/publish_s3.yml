@@ -43,6 +43,7 @@ jobs:
         touch file
         find blog
         mkdir blog/output
+        chmod 777 blog/output
         docker run -v "$(pwd)"/blog:/blog "${DOCKER_HUB_USERNAME}"/pelican:latest make html
         find blog
 
