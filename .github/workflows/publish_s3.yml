@@ -38,7 +38,7 @@ jobs:
     - name: Create HTML content
       env: 
         DOCKER_HUB_USERNAME: ${secrets.DOCKER_HUB_USERNAME}
-      run: docker run -v "$(pwd)"/blog:/blog $DOCKER_HUB_USERNAME/pelican:latest make html
+      run: docker run -v "$(pwd)"/blog:/blog "$DOCKER_HUB_USERNAME"/pelican:latest make html
 
     - name: send to S3
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'  
