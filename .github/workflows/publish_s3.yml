@@ -40,7 +40,7 @@ jobs:
         DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
       run: | 
         touch file
-        find /blog
+        find blog
         docker run -v "$(pwd)"/blog:/blog "${DOCKER_HUB_USERNAME}"/pelican:latest make html
 
     - name: send to S3
