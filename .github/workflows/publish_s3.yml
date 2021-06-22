@@ -43,7 +43,7 @@ jobs:
         chmod 777 blog/output
         docker run -v "$(pwd)"/blog:/blog "${DOCKER_HUB_USERNAME}"/pelican:latest make html
 
-    - name: send to S3
+    - name: Upload Content to S3
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'  
       uses: jakejarvis/s3-sync-action@master
       with:
