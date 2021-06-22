@@ -39,13 +39,9 @@ jobs:
       env: 
         DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
       run: | 
-        set +e
-        touch file
-        find blog
         mkdir blog/output
         chmod 777 blog/output
         docker run -v "$(pwd)"/blog:/blog "${DOCKER_HUB_USERNAME}"/pelican:latest make html
-        find blog
 
     - name: send to S3
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'  
