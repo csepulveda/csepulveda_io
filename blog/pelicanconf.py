@@ -3,7 +3,7 @@
 
 AUTHOR = 'Cesar Sepulveda'
 SITENAME = 'csepulveda.io'
-SITEURL = './'
+SITEURL = 'https://blog.csepulveda.io'
 
 PATH = 'content'
 
