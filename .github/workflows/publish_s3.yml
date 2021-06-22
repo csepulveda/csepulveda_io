@@ -37,6 +37,10 @@ jobs:
     - name: Image digest
       run: echo ${{ steps.docker_build.outputs.digest }}
 
+    - name: Overwrite files.
+      run: |
+        cp overwrite/analytics.html blog/themes/Peli-Kiera/templates/analytics.html
+
     - name: Create HTML content
       env: 
         DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
