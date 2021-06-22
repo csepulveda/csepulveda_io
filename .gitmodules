@@ -1,3 +1,6 @@
 [submodule "blog/themes/Peli-Kiera"]
 	path = blog/themes/Peli-Kiera
 	url = https://github.com/aleylara/Peli-Kiera
+[submodule "blog/pelican-plugins"]
+	path = blog/pelican-plugins
+	url = https://github.com/getpelican/pelican-plugins

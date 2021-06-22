@@ -35,4 +35,7 @@ DEFAULT_PAGINATION = 10
 
 THEME = 'themes/Peli-Kiera'
 
+PLUGIN_PATHS = ['pelican-plugins']
+PLUGINS = ['readtime', 'neighbors']
+
 
