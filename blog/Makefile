@@ -45,7 +45,7 @@ help:
 	@echo '                                                                          '
 
 html:
-	pelican-themes -vi themes/nice-blog; pelican -t nice-blog; "$(PELICAN)" "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS)
+	pelican-themes -vi themes/Flex; pelican -t Flex; "$(PELICAN)" "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS)
 
 clean:
 	[ ! -d "$(OUTPUTDIR)" ] || rm -rf "$(OUTPUTDIR)"
