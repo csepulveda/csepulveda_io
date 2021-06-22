@@ -37,11 +37,8 @@ jobs:
 
     - name: Create HTML content
       env: 
-        DOCKER_HUB_USERNAME: ${secrets.DOCKER_HUB_USERNAME}
+        DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
       run: | 
-        echo "$(pwd)"
-        echo "${DOCKER_HUB_USERNAME}"
-        ls -ll
         docker run -v "$(pwd)"/blog:/blog "${DOCKER_HUB_USERNAME}"/pelican:latest make html
 
     - name: send to S3
