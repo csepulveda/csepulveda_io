@@ -11,6 +11,9 @@ Terraform is an open-source infrastructure as a code software tool that enables 
 
 Here I will describe how to integrate Terraform Cloud and GitHub Actions to deploy resources on AWS.
 In that way, we could have Continuous Delivery and Continuous Delivery (CI/CD) in our Infrastructure as a Code (IaC)
+
+![iac_cicd](/images/post1/iac_cicd.png "iac_cicd")
+
 Some Stuff that we are going to need to realize this setup:
 
 * Have an AWS account with access to create IAM users and grant it full admin privileges.
