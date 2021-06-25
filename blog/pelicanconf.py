@@ -37,10 +37,34 @@ SOCIAL = (
 THEME = 'themes/Peli-Kiera'
 
 PLUGIN_PATHS = ['pelican-plugins']
-PLUGINS = ['readtime', 'neighbors']
+PLUGINS = ['readtime', 'neighbors', 'sitemap']
 SUMMARY_MAX_LENGTH = 100
 DEFAULT_PAGINATION = 10
 
 
 DISQUS_SITENAME = "csepulveda"
 GOOGLE_ANALYTICS = "G-YPBW8TZ5KS"
+
+SITEMAP = {
+    "format": "xml",
+    "priorities": {
+        "articles": 0.5,
+        "indexes": 0.5,
+        "pages": 0.5
+    },
+    "changefreqs": {
+        "articles": "monthly",
+        "indexes": "daily",
+        "pages": "monthly"
+    }
+}
+
+STATIC_PATHS = [
+    'images',
+    'extra',  # this
+]
+
+EXTRA_PATH_METADATA = {
+    'extra/robots.txt': {'path': 'robots.txt'},
+    'extra/favicon.ico': {'path': 'favicon.ico'},
+}
