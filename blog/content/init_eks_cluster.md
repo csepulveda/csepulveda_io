@@ -12,10 +12,10 @@ Amazon Elastic Kubernetes Service (EKS) is a managed Kubernetes service that mak
 Here I will describe how to extend our [basic setup](/Initial-Setup-of-Terraform-and-GitHub-Actions.html) and setup a simple kubernetes cluster using EKS using the AWS/EKS terraform module and the Helm chart to install the Auto Scaling controller.
 
 ## Setup the VPC
-The first step will be set up our vpc, for this case i'm going to create a vpc with 3 different subnets
-* private_subnets, in this subnet we are going to launch our node instances
-* public_subnets, in this subnet we are going to launch our load balancers (will not by used for the moment)
-* database_subnets, in this subnet we are going to launch our databases (will not be used for the moment)
+The first step will be to set up our VPC; for this case, I'm going to create a VPC with three different subnets
+* private_subnets, in this subnet, we are going to launch our node instances
+* public_subnets, in this subnet, we are going to launch our load balancers (will not be used for the moment)
+* database_subnets, in this subnet, we are going to launch our databases (will not be used for the moment)
 
 The code could be checked [here](https://raw.githubusercontent.com/csepulveda/aws_base_setup/5343af5e3d852a4b005fbdc9bdd75e2b943bce8d/vpc.tf):
 
@@ -53,12 +53,12 @@ module "vpc" {
 }
 ```
 
-The tags will be used in the future to launch out ALB using the AWS Ingress Controller.
+The tags will be used in the future to launch some Application Load Balancers using the AWS Ingress Controller.
 
 ## Setup the EKS Cluster
-To setup the cluster we are going to use the AWS/EKS module. its pretty simple and we have to modify some few thing to enable the Auto Scaling controller.
+To setup the cluster, we are going to use the AWS/EKS module. It's pretty simple, and we have to modify a few things to enable the Auto Scaling controller.
 
-The conifguration is the [following](https://raw.githubusercontent.com/csepulveda/aws_base_setup/5343af5e3d852a4b005fbdc9bdd75e2b943bce8d/eks.tf):
+The configuration is the [following](https://raw.githubusercontent.com/csepulveda/aws_base_setup/5343af5e3d852a4b005fbdc9bdd75e2b943bce8d/eks.tf):
 
 ```
 data "aws_eks_cluster" "cluster" {
@@ -112,14 +112,14 @@ output "kubectl" {
 }
 ```
 
-Only wuth that terraform wll be able to create out eks cluster.
+Only with that Terraform will be able to create our EKS cluster.
 
-To add the auto scaling controller we need to:
-* Craete a IAM role to allow the scaler modify AWS resources
-* Indicate to the ServiceRole wich AWS IAM role must be use
+To add the auto-scaling controller, we need to:
+* Create an IAM role to allow the scaler to modify AWS resources
+* Indicate to the ServiceRole which AWS IAM role must be used
 * Install the controller.
 
-To install the controller and set the permission we are going to user the file: [eks_autoscaler.tf](https://raw.githubusercontent.com/csepulveda/aws_base_setup/41e3f622c9a55b4117dc33e1d65d83c229ac525a/eks_autoscaler.tf)
+To install the controller and set the permission, we are going to use the file: [eks_autoscaler.tf](https://raw.githubusercontent.com/csepulveda/aws_base_setup/41e3f622c9a55b4117dc33e1d65d83c229ac525a/eks_autoscaler.tf)
 
 ```
 #To allow autoscaling we are going to create five differente resources:
@@ -189,17 +189,17 @@ resource "helm_release" "cluster-autoscaler" {
   }
 }
 ```
-The instalation of the controller will be done using HELM, and we have to pass some few arguments.
-* autoDiscovery.clusterName to enaable the autodiscovery of the resources that must be modified to apply the scale of services (the tags defined in the eks.tf file)
-* awsRegion thje region name where our kluster will run
-* rbac.serviceAccount.name. this is very important because will define with role must be attached to the serviceAccount used by the controller and grant access to the [resources](https://raw.githubusercontent.com/csepulveda/aws_base_setup/41e3f622c9a55b4117dc33e1d65d83c229ac525a/iam-policies/autoscaler.json)
+The installation of the controller will be done using HELM, and we have to pass a few arguments.
+* autoDiscovery.clusterName:  To enable the autodiscovery of the resources that must be modified to apply the scale of services (the tags defined in the eks.tf file)
+* awsRegion: The region name where our cluster will run
+* rbac.serviceAccount.name: This is very important because will define with role must be attached to the serviceAccount used by the controller and grant access to the [resources](https://raw.githubusercontent.com/csepulveda/aws_base_setup/41e3f622c9a55b4117dc33e1d65d83c229ac525a/iam-policies/autoscaler.json)
 
-Now when we upload this files, and run out Pull Request as i alredy describe [here](/Initial-Setup-of-Terraform-and-GitHub-Actions.htm) we are going to have configurated our eks cluster with autoscaling.
+Now, when we upload these files and run out a Pull Request as I already describe [here](/Initial-Setup-of-Terraform-and-GitHub-Actions.htm), we will have configurated our EKS cluster with auto-scaling.
 
-## After apply the resources
-We have to check if our cluster is doing the autoscaling correctly, to check that we have to first check the logs from out autoscaling pods:
+## After applying the resources
+We have to check if our cluster is doing the autoscaling correctly. To check that, we have to first check the logs from our autoscaling pods:
 
-first we need to create out kube config, as show out terraform output, for my case:
+First, we need to create out Kube config, as shown out terraform output, for my case:
 ```
 aws eks --region us-west-2 update-kubeconfig --name cluster1
 
