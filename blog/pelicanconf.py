@@ -67,5 +67,7 @@ STATIC_PATHS = [
 EXTRA_PATH_METADATA = {
     'extra/robots.txt': {'path': 'robots.txt'},
     'extra/favicon.ico': {'path': 'favicon.ico'},
-    'extra/google2257853d5e024221.html': {'path': 'google2257853d5e024221.html'}
+    'extra/google2257853d5e024221.html': {'path': 'google2257853d5e024221.html'},
 }
+
+READERS = {'html': None}
