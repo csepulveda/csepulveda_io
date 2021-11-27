@@ -1,6 +1,6 @@
 Title: Setting up a Simple EKS cluster Using Terraform/Github
 Date: 2021-06-24 10:54
-Modified: 2021-06-24 10:54
+Modified: 2021-11-27 15:11
 Category: IaC
 Tags: terraform, aws, github, iac, ci/cd, kubernetes
 Slug: Setting_up_a_Simple_EKS_cluster_Using_Terraform_Github
@@ -13,6 +13,7 @@ Here I will describe how to extend our [basic setup](/Initial-Setup-of-Terraform
 
 ## Setup the VPC
 The first step will be to set up our VPC; for this case, I'm going to create a VPC with three different subnets
+
 * private_subnets, in this subnet, we are going to launch our node instances
 * public_subnets, in this subnet, we are going to launch our load balancers (will not be used for the moment)
 * database_subnets, in this subnet, we are going to launch our databases (will not be used for the moment)
@@ -115,6 +116,7 @@ output "kubectl" {
 Only with that Terraform will be able to create our EKS cluster.
 
 To add the auto-scaling controller, we need to:
+
 * Create an IAM role to allow the scaler to modify AWS resources
 * Indicate to the ServiceRole which AWS IAM role must be used
 * Install the controller.
@@ -190,6 +192,7 @@ resource "helm_release" "cluster-autoscaler" {
 }
 ```
 The installation of the controller will be done using HELM, and we have to pass a few arguments.
+
 * autoDiscovery.clusterName:  To enable the autodiscovery of the resources that must be modified to apply the scale of services (the tags defined in the eks.tf file)
 * awsRegion: The region name where our cluster will run
 * rbac.serviceAccount.name: This is very important because will define with role must be attached to the serviceAccount used by the controller and grant access to the [resources](https://raw.githubusercontent.com/csepulveda/aws_base_setup/41e3f622c9a55b4117dc33e1d65d83c229ac525a/iam-policies/autoscaler.json)
